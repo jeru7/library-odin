@@ -1,0 +1,71 @@
+/* imports */
+
+/* resets */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* variables */
+:root {
+  /* primary color palette */
+  --black-color: #161a30;
+  --black-secondary-color: #31304d;
+  --grey-color: #b6bbc4;
+  --white-color: #f0ece5;
+  /* secondary color palette */
+  --secondary-color1: #292632;
+  --secondary-color2: #5c5470;
+  --secondary-color3: #b9b4c7;
+  --secondary-color4: #faf0e6;
+  /* font colors */
+  --font-color1: #fff9f9;
+  --font-color2: rgb(23, 22, 29);
+  /* sizing */
+  --xsm-font-size: 10px;
+  --sm-font-size: 16px;
+  --md-font-size: 24px;
+  --lg-font-size: 32px;
+  --sm-padding: 4px;
+  --md-padding: 8px;
+  --lg-padding: 16px;
+  --xl-padding: 32px;
+  --sm-radius: 4px;
+  --md-radius: 8px;
+  --circle-radius: 50%;
+}
+
+/* defaults */
+body {
+  font-size: var(--sm-font-size);
+  color: var(--font-color2);
+  background-color: var(--black-secondary-color);
+}
+
+/* layout */
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 80px minmax(100vh, 100%) 200px 100px;
+}
+
+header,
+footer,
+.extra-space {
+  background-color: var(--black-color);
+}
+
+nav {
+  height: 80px;
+  width: 100%;
+  bottom: 20px;
+  position: fixed;
+  z-index: 1;
+  border-radius: 300px;
+  width: 600px;
+  background-color: var(--grey-color);
+  justify-self: center;
+}
