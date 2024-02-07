@@ -4,14 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="./main.css" />
+    <script
+      src="https://kit.fontawesome.com/0f91ec0f42.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Library - TheOdinProject</title>
   </head>
   <body>
-    <header></header>
-    <nav></nav>
-    <main></main>
-    <footer></footer>
-    <div class="extra-space"></div>
+    <header>
+      <h1>TheOdinLibrary</h1>
+    </header>
+    <nav>
+      <div class="nav__wrapper">
+        <div class="nav__buttons">
+          <button id="addBook"><i class="fa-solid fa-plus"></i></button>
+          <button id="favorites"><i class="fa-solid fa-heart"></i></button>
+          <button id="searchBook">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button id="scrollUp"><i class="fa-solid fa-arrow-up"></i></button>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="main__wrapper">
+        <div class="main__bookshelf"></div>
+        <div class="main__favorites"></div>
+      </div>
+    </main>
+    <footer>
+      <div class="footer__wrapper"></div>
+    </footer>
+    <script>
+      let scrollUp = document.querySelector('#scrollUp')
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          scrollUp.classList.add('show')
+        } else {
+          scrollUp.classList.remove('show')
+        }
+      })
+
+      scrollUp.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      })
+    </script>
     <script src="./main.js"></script>
   </body>
 </html>

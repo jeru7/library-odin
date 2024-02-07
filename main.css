@@ -1,4 +1,5 @@
 /* imports */
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
 
 /* resets */
 *,
@@ -29,6 +30,7 @@
   --sm-font-size: 16px;
   --md-font-size: 24px;
   --lg-font-size: 32px;
+  --xl-font-size: 48px;
   --sm-padding: 4px;
   --md-padding: 8px;
   --lg-padding: 16px;
@@ -43,29 +45,120 @@ body {
   font-size: var(--sm-font-size);
   color: var(--font-color2);
   background-color: var(--black-secondary-color);
+  font-family: 'PT Serif', sans-serif;
 }
 
 /* layout */
 body {
   height: 100vh;
   display: grid;
-  grid-template-rows: 80px minmax(100vh, 100%) 200px 100px;
+  grid-template-rows: 80px minmax(100vh, 100%) 300px;
 }
 
 header,
-footer,
-.extra-space {
+footer {
   background-color: var(--black-color);
+}
+
+footer {
+  padding-bottom: 100px;
+}
+
+.footer__wrapper {
+  height: 100%;
+  width: 100%;
 }
 
 nav {
   height: 80px;
-  width: 100%;
   bottom: 20px;
   position: fixed;
   z-index: 1;
-  border-radius: 300px;
   width: 600px;
-  background-color: var(--grey-color);
   justify-self: center;
+}
+
+/* navigator */
+.nav__wrapper {
+  height: 100%;
+  border-radius: 300px;
+  background-color: var(--grey-color);
+}
+
+.nav__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  border-radius: 300px;
+}
+
+.nav__buttons button {
+  display: flex;
+  height: 60px;
+  width: 60px;
+  align-items: center;
+  font-size: var(--xl-font-size);
+  justify-content: center;
+  padding: var(--xl-padding);
+  border-radius: var(--circle-radius);
+  border: none;
+  background-color: var(--grey-color);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#searchBook {
+  font-size: 40px;
+}
+
+.nav__buttons button:hover {
+  background-color: var(--secondary-color2);
+  color: var(--grey-color);
+}
+
+.nav__buttons button:active {
+  transform: scale(0.8);
+}
+
+#scrollUp {
+  display: none;
+  opacity: 0;
+}
+
+#scrollUp.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--font-color1);
+}
+
+header h1 {
+  font-size: var(--xl-font-size);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+header h1:hover {
+  transform: scale(1.01);
+}
+
+/* main */
+main {
+  padding: var(--xl-padding);
+}
+
+.main__wrapper {
+  height: 100%;
+}
+
+.main__bookshelf,
+.main__favorites {
+  height: 100%;
 }
