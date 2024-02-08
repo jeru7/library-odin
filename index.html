@@ -26,16 +26,20 @@
     </nav>
     <main>
       <div class="main__wrapper">
-        <div class="main__bookshelf"></div>
-        <div class="main__favorites"></div>
-        <div class="main__search-results"></div>
+        <i class="fa-solid fa-angle-left" id="backBtn"></i>
+        <div class="main__bookshelf">
+          <h1>BOOKSHELF</h1>
+          <div class="bookshelf-container"></div>
+        </div>
+        <div class="main__favorites"><h1>FAVORITES</h1></div>
+        <div class="main__search-results"><h1>SEARCH RESULT</h1></div>
       </div>
     </main>
     <footer>
       <div class="footer__wrapper"></div>
     </footer>
     <div class="add-books modal">
-      <form id="add-book-form" onsubmit="addBooks()">
+      <form id="add-book-form" onsubmit="addBookToLibrary(event)">
         <div class="inputs">
           <label for="book-title">Title</label>
           <input
@@ -43,6 +47,7 @@
             id="book-title"
             name="book-title"
             placeholder="Enter book title..."
+            required
           />
         </div>
 
@@ -53,6 +58,7 @@
             id="book-author"
             name="book-author"
             placeholder="Enter book author..."
+            required
           />
         </div>
 
@@ -64,6 +70,7 @@
             name="book-pages"
             placeholder="Enter the number of pages..."
             min="1"
+            required
           />
         </div>
 
@@ -83,7 +90,12 @@
         </div>
       </form>
     </div>
-    <div class="search-book modal"></div>
+    <div class="search-book modal">
+      <input type="text" name="search-value" placeholder="Search..." />
+      <button id="searchBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
     <script>
       let scrollUp = document.querySelector('#scrollUp')
       let navWrapperEl = document.querySelector('.nav__wrapper')
