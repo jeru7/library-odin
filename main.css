@@ -170,7 +170,8 @@ main {
   animation: fadeIn ease-in 0.3s;
 }
 
-.main__bookshelf {
+.main__bookshelf,
+.main__favorites {
   display: flex;
   height: 80%;
   flex-direction: column;
@@ -178,14 +179,19 @@ main {
   color: var(--font-color1);
 }
 
-.bookshelf-container {
-  display: grid;
+.bookshelf-container,
+.favorites-container {
+  display: none;
   grid-template-columns: repeat(4, 1fr);
   padding: var(--xl-padding);
   height: 100%;
   width: 100%;
   gap: 8px;
   overflow: auto;
+}
+
+.favorites-container {
+  width: 80%;
 }
 
 .book {
@@ -214,9 +220,20 @@ main {
 }
 
 .deleteBtn:hover,
-.isFavorite:hover {
+.isFavorite:hover,
+.readToggler:hover {
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.bookshelf-empty,
+.favorites-empty {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--secondary-color2);
+  font-size: var(--xl-font-size);
 }
 
 .main__favorites {
@@ -369,6 +386,8 @@ input[type='number'] {
   background-color: var(--green-color);
 }
 
+/* search modal */
+
 .search-book {
   display: none;
   align-items: center;
@@ -393,7 +412,7 @@ input[type='number'] {
   font-size: var(--md-font-size);
   background-color: inherit;
   border-radius: var(--md-radius);
-  color: var(--font-color1);
+  color: var(--secondary-color1);
 }
 
 .search-book.show {

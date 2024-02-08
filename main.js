@@ -1,4 +1,4 @@
-const myLibrary = []
+let myLibrary = []
 
 function Book(title, author, pages, isRead, isFavorite) {
   this.title = title
@@ -9,6 +9,7 @@ function Book(title, author, pages, isRead, isFavorite) {
 }
 
 function addBookToLibrary(e) {
+  const form = document.querySelector('#add-book-form')
   e.preventDefault()
 
   // fetch the data from the form
@@ -19,24 +20,59 @@ function addBookToLibrary(e) {
   const isFavorite = document.querySelector('#book-favorites').checked
   const book = new Book(title, author, pages, isRead, isFavorite)
   myLibrary.push(book)
-  addBooks()
+  displayBooks()
+  form.reset()
+  addBookModal.classList.remove('show')
 }
 
-function addBooks() {
+function displayBooks() {
   const bookshelfContainerEl = document.querySelector('.bookshelf-container')
-  myLibrary.forEach((book) => {
-    const bookContainer = `
-    <div class="book">
-              <i class="fa-solid fa-trash-can deleteBtn"></i>
-              <i class="fa-regular fa-heart isFavorite"></i>
-              <p class="book-titles">${book.title}</p>
-              <p class="book-authors">${book.author}</p>
-              <p class="book-pages">${book.pages}</p>
-              <p class="isRead">Read</p>
-            </div>
-    `
-    bookshelfContainerEl.innerHTML += bookContainer
-  })
+  const emptyBookshelfEl = document.querySelector('.bookshelf-empty')
+
+  if (myLibrary.length === 0) {
+    emptyBookshelfEl.style.display = 'flex'
+    bookshelfContainerEl.style.display = 'none'
+  } else {
+    emptyBookshelfEl.style.display = 'none'
+    bookshelfContainerEl.style.display = 'grid'
+    bookshelfContainerEl.innerHTML = ''
+
+    myLibrary.forEach((book, index) => {
+      const bookContainer = `
+        <div class="book">
+          <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'bookshelf')"></i>
+          <i class="${
+            book.isFavorite ? 'fa-solid' : 'fa-regular'
+          } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'bookshelf')"></i>
+          <p class="book-titles">${book.title}</p>
+          <p class="book-authors">Author: ${book.author}</p>
+          <p class="book-pages">No. of pages: ${book.pages}</p>
+          <p class="isRead"><i class="fa-regular ${
+            book.isRead ? 'fa-square-check' : 'fa-square'
+          } readToggler" onclick="toggleRead(${index}, 'bookshelf')"></i> Read</p>
+        </div>
+      `
+      bookshelfContainerEl.innerHTML += bookContainer
+    })
+  }
+}
+
+function toggleFavorite(index, checker) {
+  myLibrary[index].isFavorite = !myLibrary[index].isFavorite
+  if (checker === 'bookshelf') {
+    displayBooks()
+  } else {
+    displayFavorites()
+  }
+}
+
+function toggleRead(index, checker) {
+  myLibrary[index].isRead = !myLibrary[index].isRead
+  if (checker === 'bookshelf') {
+    displayBooks()
+  } else {
+    displayFavorites()
+  }
 }
 
 // modal containers
@@ -61,8 +97,45 @@ showFavoritesBtn.addEventListener('click', () => {
     top: 80,
     behavior: 'smooth',
   })
+  displayFavorites()
 })
 
+//  function that display favorite books
+function displayFavorites() {
+  const favoriteBooksContainerEl = document.querySelector(
+    '.favorites-container'
+  )
+  const emptyFavoritesEl = document.querySelector('.favorites-empty')
+
+  const favoriteBooks = myLibrary.filter((book) => book.isFavorite === true)
+
+  if (favoriteBooks.length === 0) {
+    emptyFavoritesEl.style.display = 'flex'
+    favoriteBooksContainerEl.style.display = 'none'
+  } else {
+    emptyFavoritesEl.style.display = 'none'
+    favoriteBooksContainerEl.style.display = 'grid'
+    favoriteBooksContainerEl.innerHTML = ''
+
+    favoriteBooks.forEach((book, index) => {
+      const bookContainer = `
+        <div class="book">
+          <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'favorites')"></i>
+          <i class="${
+            book.isFavorite ? 'fa-solid' : 'fa-regular'
+          } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'favorites')"></i>
+          <p class="book-titles">${book.title}</p>
+          <p class="book-authors">Author: ${book.author}</p>
+          <p class="book-pages">No. of pages: ${book.pages}</p>
+          <p class="isRead"><i class="fa-regular ${
+            book.isRead ? 'fa-square-check' : 'fa-square'
+          } readToggler" onclick="toggleRead(${index}, 'favorites')"></i> Read</p>
+        </div>
+      `
+      favoriteBooksContainerEl.innerHTML += bookContainer
+    })
+  }
+}
 // back button to bookshelf
 backBtnEl.addEventListener('click', () => {
   mainBookshelfContainerEl.classList.remove('hide')
@@ -73,7 +146,20 @@ backBtnEl.addEventListener('click', () => {
     top: 80,
     behavior: 'smooth',
   })
+  displayBooks()
 })
+
+// delete button
+function deleteBook(index, checker) {
+  const modifiedLibrary = myLibrary.filter((_, i) => i !== index)
+  myLibrary = modifiedLibrary
+
+  if (checker === 'bookshelf') {
+    displayBooks()
+  } else {
+    displayFavorites()
+  }
+}
 
 // search book button
 const searchBtn = document.querySelector('#searchBtn')
@@ -121,7 +207,6 @@ cancelBtnEl.addEventListener('click', (e) => {
 // add book button (submits form)
 const addBookBtnEl = document.querySelector('#addBookBtn')
 addBookBtnEl.addEventListener('click', () => {
-  addBookModal.classList.add('show')
   mainBookshelfContainerEl.classList.remove('hide')
   favoritesContainerEl.classList.remove('show')
   searchResultContainerEl.classList.remove('show')
@@ -136,5 +221,4 @@ addBookBtnEl.addEventListener('click', () => {
 // window.addEventListener('scroll', () => {
 //   console.log(window.scrollY)
 // })
-
-addBooks()
+displayBooks()
