@@ -16,33 +16,105 @@
     </header>
     <nav>
       <div class="nav__wrapper">
-        <div class="nav__buttons">
-          <button id="addBook"><i class="fa-solid fa-plus"></i></button>
-          <button id="favorites"><i class="fa-solid fa-heart"></i></button>
-          <button id="searchBook">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button id="scrollUp"><i class="fa-solid fa-arrow-up"></i></button>
-        </div>
+        <button id="addBook"><i class="fa-solid fa-plus"></i></button>
+        <button id="favorites"><i class="fa-solid fa-heart"></i></button>
+        <button id="searchBook">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button id="scrollUp"><i class="fa-solid fa-arrow-up"></i></button>
       </div>
     </nav>
     <main>
       <div class="main__wrapper">
         <div class="main__bookshelf"></div>
         <div class="main__favorites"></div>
+        <div class="main__search-results"></div>
       </div>
     </main>
     <footer>
       <div class="footer__wrapper"></div>
     </footer>
+    <div class="add-books modal">
+      <form id="add-book-form" onsubmit="addBooks()">
+        <div class="inputs">
+          <label for="book-title">Title</label>
+          <input
+            type="text"
+            id="book-title"
+            name="book-title"
+            placeholder="Enter book title..."
+          />
+        </div>
+
+        <div class="inputs">
+          <label for="book-author">Author</label>
+          <input
+            type="text"
+            id="book-author"
+            name="book-author"
+            placeholder="Enter book author..."
+          />
+        </div>
+
+        <div class="inputs">
+          <label for="book-pages">No. of pages</label>
+          <input
+            type="number"
+            id="book-pages"
+            name="book-pages"
+            placeholder="Enter the number of pages..."
+            min="1"
+          />
+        </div>
+
+        <div class="checkboxes">
+          <input type="checkbox" id="book-read" name="book-read" />
+          <label for="book-read">Read</label>
+        </div>
+
+        <div class="checkboxes">
+          <input type="checkbox" id="book-favorites" name="book-favorites" />
+          <label for="book-favorites">Add to favorites</label>
+        </div>
+
+        <div class="add-book-buttons">
+          <button class="cancelBtn">Cancel</button>
+          <button id="addBookBtn" type="submit">Add Book</button>
+        </div>
+      </form>
+    </div>
+    <div class="search-book modal"></div>
     <script>
       let scrollUp = document.querySelector('#scrollUp')
+      let navWrapperEl = document.querySelector('.nav__wrapper')
 
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
+        if (window.scrollY > 80) {
+          if (window.innerWidth <= 768) {
+            navWrapperEl.style.width = '250px'
+          } else {
+            navWrapperEl.style.width = '500px'
+          }
           scrollUp.classList.add('show')
         } else {
+          if (window.innerWidth <= 768) {
+            navWrapperEl.style.width = '200px'
+          } else {
+            navWrapperEl.style.width = '400px'
+          }
           scrollUp.classList.remove('show')
+        }
+      })
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768 && window.scrollY < 80) {
+          navWrapperEl.style.width = '200px'
+        } else if (window.innerWidth <= 768 && window.scrollY > 80) {
+          navWrapperEl.style.width = '250px'
+        } else if (window.innerWidth > 768 && window.scrollY < 80) {
+          navWrapperEl.style.width = '400px'
+        } else if (window.innerWidth > 768 && window.scrollY > 80) {
+          navWrapperEl.style.width = '500px'
         }
       })
 

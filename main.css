@@ -22,6 +22,9 @@
   --secondary-color2: #5c5470;
   --secondary-color3: #b9b4c7;
   --secondary-color4: #faf0e6;
+  /* highlights */
+  --red-color: #cf6679;
+  --green-color: #2ea44f;
   /* font colors */
   --font-color1: #fff9f9;
   --font-color2: rgb(23, 22, 29);
@@ -70,30 +73,29 @@ footer {
 }
 
 nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 80px;
   bottom: 20px;
   position: fixed;
   z-index: 1;
-  width: 600px;
   justify-self: center;
 }
 
 /* navigator */
 .nav__wrapper {
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: space-around;
   height: 100%;
   border-radius: 300px;
   background-color: var(--grey-color);
+  transition: all 0.3s;
 }
 
-.nav__buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 100%;
-  border-radius: 300px;
-}
-
-.nav__buttons button {
+.nav__wrapper button {
   display: flex;
   height: 60px;
   width: 60px;
@@ -112,18 +114,19 @@ nav {
   font-size: 40px;
 }
 
-.nav__buttons button:hover {
+.nav__wrapper button:hover {
   background-color: var(--secondary-color2);
   color: var(--grey-color);
 }
 
-.nav__buttons button:active {
+.nav__wrapper button:active {
   transform: scale(0.8);
 }
 
 #scrollUp {
   display: none;
   opacity: 0;
+  transition: opacity 0.3s;
 }
 
 #scrollUp.show {
@@ -159,6 +162,180 @@ main {
 }
 
 .main__bookshelf,
-.main__favorites {
+.main__favorites,
+.main__search-results {
+  border: 1px solid red;
   height: 100%;
+}
+
+.main__bookshelf {
+  display: none;
+}
+
+.main__favorites {
+  display: none;
+}
+
+.main__search-results {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* add book modal */
+.add-books {
+  display: none;
+  top: 50%;
+  height: 350px;
+  width: 500px;
+  padding: var(--lg-padding);
+  border-radius: var(--md-radius);
+  background-color: var(--secondary-color1);
+  z-index: 2;
+  animation: fadeIn ease-in 0.3s;
+}
+
+.add-books.show {
+  display: flex;
+}
+
+#add-book-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#add-book-form label {
+  color: var(--font-color1);
+}
+
+#add-book-form input {
+  background-color: inherit;
+  border: 1px solid;
+  border-color: var(--black-secondary-color);
+  outline: none;
+  border-radius: var(--sm-radius);
+  color: var(--grey-color);
+  padding: var(--sm-padding) var(--md-padding);
+  font-size: var(--sm-font-size);
+}
+
+#add-book-form input[type='text'],
+#add-book-form input[type='number'] {
+  height: 30px;
+}
+/* disables the arrow on the number inputs */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.checkboxes {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.add-book-buttons {
+  text-align: right;
+}
+
+.add-book-buttons button {
+  padding: var(--md-padding) var(--lg-padding);
+  font-size: var(--sm-font-size);
+  border-radius: var(--sm-radius);
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.add-book-buttons button:hover {
+  transform: scale(1.01);
+}
+
+.cancelBtn {
+  background-color: inherit;
+  border: 1px solid var(--black-color);
+  color: var(--black-color);
+}
+
+#addBookBtn {
+  border: none;
+  background-color: var(--green-color);
+}
+
+.search-book {
+  display: none;
+  top: 75%;
+  height: 60px;
+  width: 500px;
+  opacity: 0;
+  animation: fadeIn ease-in 0.3s;
+}
+
+.search-book.show {
+  display: flex;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* media queries */
+@media (max-width: 768px) {
+  /* navigator */
+  .nav__wrapper {
+    height: 60px;
+    border-radius: 300px;
+    background-color: var(--grey-color);
+  }
+
+  .nav__wrapper button {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    align-items: center;
+    font-size: var(--lg-font-size);
+    justify-content: center;
+    padding: var(--lg-padding);
+    transition: all 0.3s;
+  }
+
+  #searchBook {
+    font-size: 20px;
+  }
+
+  .nav__wrapper button:hover {
+    background-color: var(--secondary-color2);
+    color: var(--grey-color);
+  }
+
+  .nav__wrapper button:active {
+    transform: scale(0.8);
+  }
 }
