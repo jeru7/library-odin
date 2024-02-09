@@ -49,6 +49,13 @@
         </div>
         <div class="main__search-results">
           <h1>SEARCH RESULT</h1>
+          <div class="results-container"></div>
+          <div class="search-results-empty">
+            <h2>
+              <i class="fa-regular fa-face-frown"></i> Favorites is currently
+              empty.
+            </h2>
+          </div>
         </div>
       </div>
     </main>
@@ -108,8 +115,13 @@
       </form>
     </div>
     <div class="search-book modal">
-      <input type="text" name="search-value" placeholder="Search..." />
-      <button id="searchBtn">
+      <input
+        type="text"
+        name="search-value"
+        placeholder="Search..."
+        id="search-value"
+      />
+      <button id="searchBtn" onclick="displaySearchResult()">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </div>

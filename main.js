@@ -63,8 +63,10 @@ function toggleFavorite(index, checker) {
   myLibrary[index].isFavorite = !myLibrary[index].isFavorite
   if (checker === 'bookshelf') {
     displayBooks()
-  } else {
+  } else if (checker === 'favorites') {
     displayFavorites()
+  } else {
+    displaySearchResult()
   }
 }
 
@@ -72,8 +74,10 @@ function toggleRead(index, checker) {
   myLibrary[index].isRead = !myLibrary[index].isRead
   if (checker === 'bookshelf') {
     displayBooks()
-  } else {
+  } else if (checker === 'favorites') {
     displayFavorites()
+  } else {
+    displaySearchResult()
   }
 }
 
@@ -123,10 +127,10 @@ function displayFavorites() {
       const bookContainer = `
         <div class="book">
         <div class="book-icons">
-        <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'bookshelf')"></i>
+        <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'favorites')"></i>
           <i class="${
             book.isFavorite ? 'fa-solid' : 'fa-regular'
-          } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'bookshelf')"></i>
+          } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'favorites')"></i>
         </div>
           <p class="book-titles">Title: ${book.title}</p>
           <p class="book-authors">Author: ${book.author}</p>
@@ -160,25 +164,66 @@ function deleteBook(index, checker) {
 
   if (checker === 'bookshelf') {
     displayBooks()
-  } else {
+  } else if (checker === 'favorites') {
     displayFavorites()
+  } else {
+    displaySearchResult()
   }
 }
 
 // search book button
-const searchBtn = document.querySelector('#searchBtn')
+function displaySearchResult() {
+  const searchValue = document
+    .querySelector('#search-value')
+    .value.toLowerCase()
+  const searchResults = myLibrary.filter((book) =>
+    book.title.toLowerCase().includes(searchValue)
+  )
 
-searchBtn.addEventListener('click', () => {
+  const resultContainerEl = document.querySelector('.results-container')
+  const resultEmptyContainer = document.querySelector('.search-results-empty')
+
   searchResultContainerEl.classList.add('show')
   backBtnEl.classList.add('show')
   mainBookshelfContainerEl.classList.add('hide')
   favoritesContainerEl.classList.remove('show')
+
+  if (searchResults.length > 0) {
+    resultEmptyContainer.style.display = 'none'
+    resultContainerEl.style.display = 'grid'
+    resultContainerEl.innerHTML = ''
+
+    searchResults.forEach((book, index) => {
+      const bookContainer = `
+      <div class="book">
+      <div class="book-icons">
+      <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'searchResult')"></i>
+        <i class="${
+          book.isFavorite ? 'fa-solid' : 'fa-regular'
+        } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'searchResult')"></i>
+      </div>
+        <p class="book-titles">Title: ${book.title}</p>
+        <p class="book-authors">Author: ${book.author}</p>
+        <p class="book-pages">No. of pages: ${book.pages}</p>
+        <p class="isRead"><i class="fa-regular ${
+          book.isRead ? 'fa-square-check' : 'fa-square'
+        } readToggler" onclick="toggleRead(${index}, 'searchResult')"></i> Read</p>
+      </div>
+    `
+      resultContainerEl.innerHTML += bookContainer
+    })
+  } else {
+    resultEmptyContainer.style.display = 'flex'
+    resultContainerEl.style.display = 'none'
+  }
+
+  console.log(searchResults)
   // smoothly scroll the window towards the favorites section
   window.scrollTo({
     top: 80,
     behavior: 'smooth',
   })
-})
+}
 
 // open add book button
 const openAddBookBtnEl = document.querySelector('#addBook')
