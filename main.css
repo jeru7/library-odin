@@ -199,23 +199,29 @@ main {
   flex-direction: column;
   gap: 32px;
   padding: var(--lg-padding);
-  width: 100%;
+  width: 280px;
   height: 100%;
   background-color: var(--secondary-color1);
   border-radius: var(--md-radius);
-}
-
-.isFavorite {
-  align-self: flex-end;
+  overflow-x: auto;
 }
 
 .book-titles {
-  text-align: center;
-  font-size: var(--xl-font-size);
+  font-size: var(--md-font-size);
+}
+
+.book-titles,
+.book-authors {
+  word-wrap: break-word;
+}
+
+.book-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .deleteBtn {
-  position: absolute;
   color: var(--red-color);
 }
 

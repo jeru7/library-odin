@@ -40,11 +40,13 @@ function displayBooks() {
     myLibrary.forEach((book, index) => {
       const bookContainer = `
         <div class="book">
-          <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'bookshelf')"></i>
+        <div class="book-icons">
+        <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'bookshelf')"></i>
           <i class="${
             book.isFavorite ? 'fa-solid' : 'fa-regular'
           } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'bookshelf')"></i>
-          <p class="book-titles">${book.title}</p>
+        </div>
+          <p class="book-titles">Title: ${book.title}</p>
           <p class="book-authors">Author: ${book.author}</p>
           <p class="book-pages">No. of pages: ${book.pages}</p>
           <p class="isRead"><i class="fa-regular ${
@@ -120,11 +122,13 @@ function displayFavorites() {
     favoriteBooks.forEach((book, index) => {
       const bookContainer = `
         <div class="book">
-          <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'favorites')"></i>
+        <div class="book-icons">
+        <i class="fa-solid fa-trash-can deleteBtn" onclick="deleteBook(${index}, 'bookshelf')"></i>
           <i class="${
             book.isFavorite ? 'fa-solid' : 'fa-regular'
-          } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'favorites')"></i>
-          <p class="book-titles">${book.title}</p>
+          } fa-heart isFavorite" onclick="toggleFavorite(${index}, 'bookshelf')"></i>
+        </div>
+          <p class="book-titles">Title: ${book.title}</p>
           <p class="book-authors">Author: ${book.author}</p>
           <p class="book-pages">No. of pages: ${book.pages}</p>
           <p class="isRead"><i class="fa-regular ${
@@ -180,7 +184,7 @@ searchBtn.addEventListener('click', () => {
 const openAddBookBtnEl = document.querySelector('#addBook')
 // opens add book modal
 openAddBookBtnEl.addEventListener('click', () => {
-  addBookModal.classList.add('show')
+  addBookModal.classList.toggle('show')
   searchModal.classList.remove('show')
 })
 
