@@ -182,16 +182,18 @@ main {
 .bookshelf-container,
 .favorites-container {
   display: none;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 250px);
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   padding: var(--xl-padding);
   height: 100%;
   width: 100%;
-  gap: 8px;
   overflow: auto;
 }
 
 .favorites-container {
-  width: 80%;
+  width: 100%;
 }
 
 .book {
@@ -199,8 +201,8 @@ main {
   flex-direction: column;
   gap: 32px;
   padding: var(--lg-padding);
-  width: 280px;
-  height: 100%;
+  width: 250px;
+  height: 300px;
   background-color: var(--secondary-color1);
   border-radius: var(--md-radius);
   overflow-x: auto;
@@ -240,6 +242,7 @@ main {
   height: 100%;
   color: var(--secondary-color2);
   font-size: var(--xl-font-size);
+  text-align: center;
 }
 
 .main__favorites {
@@ -277,14 +280,13 @@ main {
   font-size: 64px;
   border-radius: var(--sm-radius);
   padding: var(--sm-padding);
-  top: 50%;
-  transform: translateY(-50%);
+  top: 20px;
   cursor: pointer;
   opacity: 0;
 }
 
 #backBtn:hover {
-  transform: scale(1.05) translateY(-50%);
+  transform: scale(1.05);
 }
 
 #backBtn:active {
@@ -451,8 +453,26 @@ input[type='number'] {
 }
 
 /* media queries */
+@media (max-width: 1200px) {
+  .favorites-empty,
+  .bookshelf-empty {
+    font-size: var(--lg-font-size);
+  }
+
+  .bookshelf-container,
+  .favorites-container {
+    grid-template-columns: repeat(3, 250px);
+  }
+}
+
+@media (max-width: 992px) {
+  .bookshelf-container,
+  .favorites-container {
+    grid-template-columns: repeat(2, 250px);
+  }
+}
+
 @media (max-width: 768px) {
-  /* navigator */
   .nav__wrapper {
     height: 60px;
     border-radius: 300px;
@@ -481,5 +501,53 @@ input[type='number'] {
 
   .nav__wrapper button:active {
     transform: scale(0.8);
+  }
+
+  .favorites-empty,
+  .bookshelf-empty {
+    font-size: var(--md-font-size);
+  }
+}
+
+@media (max-width: 650px) {
+  header h1 {
+    font-size: var(--lg-font-size);
+  }
+
+  .bookshelf-container,
+  .favorites-container {
+    grid-template-columns: 250px;
+  }
+
+  .favorites-empty,
+  .bookshelf-empty {
+    font-size: var(--sm-font-size);
+  }
+
+  #backBtn {
+    font-size: var(--xl-font-size);
+    top: 100px;
+  }
+
+  .add-books {
+    height: 280px;
+    width: 300px;
+    z-index: 2;
+  }
+
+  .add-book-buttons {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .add-book-buttons button {
+    padding: var(--sm-padding) var(--md-padding);
+    font-size: var(--sm-font-size);
+  }
+
+  .search-book {
+    height: 50px;
+    width: 280px;
   }
 }
